@@ -4,23 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// refactor latime in inaltime in data de 26 Nov Big 2026
 public class HartaRestaurant {
 	private double lungime;
-	private double latime;
+	private double inaltime;
 	private ArrayList<Shape> obstacole;
 	private ArrayList<Shape> mese;
+
+	// Lungime = dimensiunea pe axa Ox (orizontală).
+	// Lățime = dimensiunea pe axa Oy (verticală).
 	
 	// constructor HartaRestaurant (pentru viitor, fa-o ca sa fie clasa singleton)
-	public HartaRestaurant(double newLungime, double newLatime) {
+	public HartaRestaurant(double newLungime, double newInaltime) {
 		this.lungime = newLungime;
-		this.latime = newLatime;
+		this.inaltime = newInaltime;
 	    this.obstacole = new ArrayList<>();
 	    this.mese = new ArrayList<>();
 	}
 	
 	// verifica daca obiectul nostru se suprapune cu o lista de alte obiecte toate implementand interfata SHAPE
 	private boolean verificaLoc(ArrayList<Shape> existente, Shape obiect) {
-	    if (!obiect.esteInInterior(lungime, latime)) return false;
+	    if (!obiect.esteInInterior(lungime, inaltime)) return false;
 	    for (Shape s : existente) {
 	        if (s.seSuprapune(obiect)) return false;
 	    }
@@ -111,13 +115,13 @@ public class HartaRestaurant {
 	    return scoase;
 	}
 	
-	public List<Shape> elementeInAfara(double lungimeNoua, double latimeNoua) {
+	public List<Shape> elementeInAfara(double lungimeNoua, double inaltimeNoua) {
 	    List<Shape> ieșite = new ArrayList<>();
 	    for (Shape s : mese) {
-	        if (!s.esteInInterior(lungimeNoua, latimeNoua)) ieșite.add(s);
+	        if (!s.esteInInterior(lungimeNoua, inaltimeNoua)) ieșite.add(s);
 	    }
 	    for (Shape s : obstacole) {
-	        if (!s.esteInInterior(lungimeNoua, latimeNoua)) ieșite.add(s);
+	        if (!s.esteInInterior(lungimeNoua, inaltimeNoua)) ieșite.add(s);
 	    }
 	    return ieșite;
 	}
@@ -235,10 +239,10 @@ public class HartaRestaurant {
 	
 	// metoda pentru a modifica dimensiunile restaurantului soft (adica nu sterge nimic fara sa il returneze)
 	//  scris 19 Nov Big 26
-	public List<Shape> setRestaurantDimensionsSoft(Double lungimeNoua, Double latimeNoua) {
+	public List<Shape> setRestaurantDimensionsSoft(Double lungimeNoua, Double inaltimeNoua) {
 	    // null = nu modific acea dimensiune
 	    double l = (lungimeNoua == null) ? this.lungime : lungimeNoua;
-	    double w = (latimeNoua == null)  ? this.latime  : latimeNoua;
+	    double w = (inaltimeNoua == null)  ? this.inaltime  : inaltimeNoua;
 
 	    // valori invalide -> excepție
 	    if (l <= 0 || w <= 0 || Double.isNaN(l) || Double.isNaN(w)
@@ -247,16 +251,16 @@ public class HartaRestaurant {
 	    }
 
 	    this.lungime = l;
-	    this.latime = w;
+	    this.inaltime = w;
 	    return popToate(elementeInAfara(l, w));
 	}
 	
 	// metoda pentru a modifica dimensiunile restaurantului hard (distruge fara a se mai gandi in spate)
 	//  scris 19 Nov Big 26
-	public void setRestaurantDimensionsHard(Double lungimeNoua, Double latimeNoua) {
+	public void setRestaurantDimensionsHard(Double lungimeNoua, Double inaltimeNoua) {
 	    // null = nu modific acea dimensiune
 	    double l = (lungimeNoua == null) ? this.lungime : lungimeNoua;
-	    double w = (latimeNoua == null)  ? this.latime  : latimeNoua;
+	    double w = (inaltimeNoua == null)  ? this.inaltime  : inaltimeNoua;
 
 	    // valori invalide -> excepție
 	    if (l <= 0 || w <= 0 || Double.isNaN(l) || Double.isNaN(w)
@@ -265,8 +269,19 @@ public class HartaRestaurant {
 	    }
 
 	    this.lungime = l;
-	    this.latime = w;
+	    this.inaltime = w;
 	    stergeToateElementele(elementeInAfara(l, w));
+	}
+
+	// metode getter pentru a lua dimensiunile
+	// scris 25 NOV Big 26
+	public double getLungime() {
+		return lungime;
+	}
+
+	// scris 25 NOV Big 26
+	public double getInaltime() {
+		return inaltime;
 	}
 	
 }

@@ -2,11 +2,14 @@ package com.restaurant.controller;
 
 import java.util.Map;
 
+import com.restaurant.model.HartaRestaurant;
+import com.restaurant.renderer.RestaurantRenderer;
 import com.restaurant.utils.ButtonUtils;
 import com.restaurant.utils.SliderUtils;
 import com.restaurant.utils.ToggleUtils;
 
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -20,6 +23,7 @@ import javafx.scene.layout.VBox;
 public class InterfataMeseController {
 
     @FXML private AnchorPane canvasPane;
+    @FXML private Canvas restaurantCanvas;
     @FXML private VBox menuPanel;
     @FXML private Label infoLabel;
 
@@ -48,8 +52,27 @@ public class InterfataMeseController {
     private final ToggleGroup shapeGroup = new ToggleGroup();
     private final ToggleGroup tipGroup = new ToggleGroup();
 
+    private HartaRestaurant hartaRestaurant;
+
+    private static final double RESTAURANT_MARGIN = 5;
+
     @FXML
     public void initialize() {
+
+        hartaRestaurant = new HartaRestaurant(8, 12);
+
+        restaurantCanvas.widthProperty().bind(canvasPane.widthProperty());
+        restaurantCanvas.heightProperty().bind(canvasPane.heightProperty());
+
+        restaurantCanvas.widthProperty().addListener(
+            (obs, oldWidth, newWidth) -> redrawRestaurant()
+        );
+
+        restaurantCanvas.heightProperty().addListener(
+            (obs, oldHeight, newHeight) -> redrawRestaurant()
+        );
+
+
         // Grupăm butoanele Select și Draw ca să fie mutual exclusive
         // utilizare dai grupul, dupa butonul default si dupa butoanele
         ButtonUtils.addToToggleGroup(modeGroup, btnSelect, btnSelect, btnDraw);
@@ -97,5 +120,18 @@ public class InterfataMeseController {
         SliderUtils.bindValueToLabel(sliderLatime, labelLatime, "%.1f m");
 
         infoLabel.setText("Mod: Select. Alege o formă din canvas.");
+    }
+
+    private void redrawRestaurant() {
+        if (hartaRestaurant == null) {
+            return;
+        }
+
+        if (restaurantCanvas.getWidth() <= 0 ||
+            restaurantCanvas.getHeight() <= 0) {
+            return;
+        }
+
+        RestaurantRenderer.drawRestaurant(restaurantCanvas, hartaRestaurant, RESTAURANT_MARGIN);
     }
 }
