@@ -2,8 +2,8 @@ package com.restaurant.utils;
 
 import java.util.Map;
 
-import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.Node;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
