@@ -1,0 +1,63 @@
+.app-root {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-background-color: #f3f5f7;
+}
+
+.page-header {
+    -fx-padding: 24 32;
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #dce2e8 transparent;
+}
+
+.page-content {
+    -fx-padding: 32;
+}
+
+.page-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1d2939;
+}
+
+.page-description {
+    -fx-font-size: 15px;
+    -fx-text-fill: #5f6b7a;
+}
+
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1d2939;
+}
+
+.navigation-button {
+    -fx-background-color: #245b78;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.navigation-button:hover {
+    -fx-background-color: #1b465d;
+}
+
+.navigation-button:focused {
+    -fx-border-color: #71b8df;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+}
+
+.secondary-button {
+    -fx-background-color: #e7edf2;
+    -fx-background-radius: 6;
+    -fx-text-fill: #253f50;
+    -fx-padding: 10 16;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #d6e2eb;
+}

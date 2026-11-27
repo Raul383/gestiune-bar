@@ -17,12 +17,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("Dashboard"), 1100, 720);
+        scene.getStylesheets().add(App.class.getResource("application.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("Gestiune restaurant");
+        stage.setMinWidth(900);
+        stage.setMinHeight(600);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 

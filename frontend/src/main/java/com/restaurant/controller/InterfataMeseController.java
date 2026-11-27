@@ -1,8 +1,11 @@
 package com.restaurant.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.restaurant.App;
+import com.restaurant.api.InterfataMeseApi;
 import com.restaurant.model.HartaRestaurant;
 import com.restaurant.renderer.RestaurantRenderer;
 import com.restaurant.renderer.RestaurantTransform;
@@ -61,6 +64,7 @@ public class InterfataMeseController {
     private final ToggleGroup shapeGroup = new ToggleGroup();
     private final ToggleGroup tipGroup = new ToggleGroup();
 
+    private final InterfataMeseApi api = new InterfataMeseApi();
     private HartaRestaurant hartaRestaurant;
     private RestaurantTransform  restaurantTransform;
 
@@ -69,7 +73,7 @@ public class InterfataMeseController {
     @FXML
     public void initialize() {
 
-        hartaRestaurant = new HartaRestaurant(8, 12);
+        hartaRestaurant = api.loadRestaurant();
 
 
         CanvasUtils.bindSizeToPane(restaurantCanvas, canvasPane, this::redrawRestaurant);
@@ -143,6 +147,11 @@ public class InterfataMeseController {
         SliderUtils.bindValueToLabel(sliderLatime, labelLatime, "%.2f m");
 
         infoLabel.setText("Mod: Select. Alege o formă din canvas.");
+    }
+
+    @FXML
+    private void backToDashboard() throws IOException {
+        App.setRoot("Dashboard");
     }
 
     private void redrawRestaurant() {
